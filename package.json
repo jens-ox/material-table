@@ -18,7 +18,9 @@
     "eslint": "eslint src/** -c ./configs/.eslintrc",
     "tsc": "tsc --noEmit --lib es6,dom --skipLibCheck types/index.d.ts",
     "lint:fix": "eslint src/** --fix",
-    "prettify": "prettier --write **/*.js"
+    "prettify": "prettier --write **/*.js",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "husky": {
     "hooks": {
@@ -51,6 +53,10 @@
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-react": "7.0.0",
     "@material-ui/core": "^4.0.1",
+    "@storybook/addon-actions": "^6.0.16",
+    "@storybook/addon-essentials": "^6.0.16",
+    "@storybook/addon-links": "^6.0.16",
+    "@storybook/react": "^6.0.16",
     "babel-eslint": "10.0.1",
     "babel-loader": "^8.0.4",
     "babel-polyfill": "^6.26.0",
@@ -69,6 +75,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.3.12",
+    "react-is": "^16.13.1",
     "typescript": "^3.2.2",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
