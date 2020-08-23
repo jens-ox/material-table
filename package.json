@@ -8,9 +8,6 @@
     "dist",
     "types"
   ],
-  "babel": {
-    "extends": ".babelrc"
-  },
   "scripts": {
     "start": "webpack-dev-server --config ./demo/webpack.config.js --mode development",
     "build": "babel src --out-dir dist",
