@@ -1,20 +1,18 @@
-/* eslint-disable no-unused-vars */
-import * as React from "react";
-import PropTypes from "prop-types";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import withStyles from "@material-ui/core/styles/withStyles";
-import { Draggable } from "react-beautiful-dnd";
-import { Tooltip } from "@material-ui/core";
-import * as CommonValues from "../utils/common-values";
-/* eslint-enable no-unused-vars */
+import * as React from 'react'
+import PropTypes from 'prop-types'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import TableCell from '@material-ui/core/TableCell'
+import TableSortLabel from '@material-ui/core/TableSortLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import withStyles from '@material-ui/core/styles/withStyles'
+import { Draggable } from 'react-beautiful-dnd'
+import { Tooltip } from '@material-ui/core'
+import * as CommonValues from '../utils/common-values'
 
 export class MTableHeader extends React.Component {
   renderHeader() {
-    const size = this.props.options.padding === "default" ? "medium" : "small";
+    const size = this.props.options.padding === 'default' ? 'medium' : 'small'
 
     const mapArr = this.props.columns
       .filter(
@@ -23,7 +21,7 @@ export class MTableHeader extends React.Component {
       )
       .sort((a, b) => a.tableData.columnOrder - b.tableData.columnOrder)
       .map((columnDef, index) => {
-        let content = columnDef.title;
+        let content = columnDef.title
 
         if (this.props.draggable) {
           content = (
@@ -42,7 +40,7 @@ export class MTableHeader extends React.Component {
                 </div>
               )}
             </Draggable>
-          );
+          )
         }
 
         if (columnDef.sorting !== false && this.props.sorting) {
@@ -50,31 +48,28 @@ export class MTableHeader extends React.Component {
             <TableSortLabel
               IconComponent={this.props.icons.SortArrow}
               active={this.props.orderBy === columnDef.tableData.id}
-              direction={this.props.orderDirection || "asc"}
+              direction={this.props.orderDirection || 'asc'}
               onClick={() => {
                 const orderDirection =
                   columnDef.tableData.id !== this.props.orderBy
-                    ? "asc"
-                    : this.props.orderDirection === "asc"
-                    ? "desc"
-                    : this.props.orderDirection === "desc" &&
+                    ? 'asc'
+                    : this.props.orderDirection === 'asc'
+                    ? 'desc'
+                    : this.props.orderDirection === 'desc' &&
                       this.props.thirdSortClick
-                    ? ""
-                    : this.props.orderDirection === "desc" &&
+                    ? ''
+                    : this.props.orderDirection === 'desc' &&
                       !this.props.thirdSortClick
-                    ? "asc"
-                    : this.props.orderDirection === ""
-                    ? "asc"
-                    : "desc";
-                this.props.onOrderChange(
-                  columnDef.tableData.id,
-                  orderDirection
-                );
+                    ? 'asc'
+                    : this.props.orderDirection === ''
+                    ? 'asc'
+                    : 'desc'
+                this.props.onOrderChange(columnDef.tableData.id, orderDirection)
               }}
             >
               {content}
             </TableSortLabel>
-          );
+          )
         }
 
         if (columnDef.tooltip) {
@@ -82,14 +77,14 @@ export class MTableHeader extends React.Component {
             <Tooltip title={columnDef.tooltip} placement="bottom">
               <span>{content}</span>
             </Tooltip>
-          );
+          )
         }
         const cellAlignment =
           columnDef.align !== undefined
             ? columnDef.align
-            : ["numeric", "currency"].indexOf(columnDef.type) !== -1
-            ? "right"
-            : "left";
+            : ['numeric', 'currency'].indexOf(columnDef.type) !== -1
+            ? 'right'
+            : 'left'
         return (
           <TableCell
             key={columnDef.tableData.id}
@@ -98,24 +93,24 @@ export class MTableHeader extends React.Component {
             style={{
               ...this.props.headerStyle,
               ...columnDef.headerStyle,
-              boxSizing: "border-box",
-              width: columnDef.tableData.width,
+              boxSizing: 'border-box',
+              width: columnDef.tableData.width
             }}
             size={size}
           >
             {content}
           </TableCell>
-        );
-      });
-    return mapArr;
+        )
+      })
+    return mapArr
   }
 
   renderActionsHeader() {
     const localization = {
       ...MTableHeader.defaultProps.localization,
-      ...this.props.localization,
-    };
-    const width = CommonValues.actionsColumnWidth(this.props);
+      ...this.props.localization
+    }
+    const width = CommonValues.actionsColumnWidth(this.props)
     return (
       <TableCell
         key="key-actions-column"
@@ -124,21 +119,22 @@ export class MTableHeader extends React.Component {
         style={{
           ...this.props.headerStyle,
           width: width,
-          textAlign: "center",
-          boxSizing: "border-box",
+          textAlign: 'center',
+          boxSizing: 'border-box'
         }}
       >
         <TableSortLabel hideSortIcon={true} disabled>
           {localization.actions}
         </TableSortLabel>
       </TableCell>
-    );
+    )
   }
+
   renderSelectionHeader() {
     const selectionWidth = CommonValues.selectionMaxWidth(
       this.props,
       this.props.treeDataMaxLevel
-    );
+    )
 
     return (
       <TableCell
@@ -164,7 +160,7 @@ export class MTableHeader extends React.Component {
           />
         )}
       </TableCell>
-    );
+    )
   }
 
   renderDetailPanelColumnCell() {
@@ -175,36 +171,36 @@ export class MTableHeader extends React.Component {
         className={this.props.classes.header}
         style={{ ...this.props.headerStyle }}
       />
-    );
+    )
   }
 
   render() {
-    const headers = this.renderHeader();
+    const headers = this.renderHeader()
     if (this.props.hasSelection) {
-      headers.splice(0, 0, this.renderSelectionHeader());
+      headers.splice(0, 0, this.renderSelectionHeader())
     }
 
     if (this.props.showActionsColumn) {
       if (this.props.actionsHeaderIndex >= 0) {
-        let endPos = 0;
+        let endPos = 0
         if (this.props.hasSelection) {
-          endPos = 1;
+          endPos = 1
         }
         headers.splice(
           this.props.actionsHeaderIndex + endPos,
           0,
           this.renderActionsHeader()
-        );
+        )
       } else if (this.props.actionsHeaderIndex === -1) {
-        headers.push(this.renderActionsHeader());
+        headers.push(this.renderActionsHeader())
       }
     }
 
     if (this.props.hasDetailPanel) {
-      if (this.props.detailPanelColumnAlignment === "right") {
-        headers.push(this.renderDetailPanelColumnCell());
+      if (this.props.detailPanelColumnAlignment === 'right') {
+        headers.push(this.renderDetailPanelColumnCell())
       } else {
-        headers.splice(0, 0, this.renderDetailPanelColumnCell());
+        headers.splice(0, 0, this.renderDetailPanelColumnCell())
       }
     }
 
@@ -214,11 +210,11 @@ export class MTableHeader extends React.Component {
         0,
         <TableCell
           padding="none"
-          key={"key-tree-data-header"}
+          key={'key-tree-data-header'}
           className={this.props.classes.header}
           style={{ ...this.props.headerStyle }}
         />
-      );
+      )
     }
 
     this.props.columns
@@ -229,17 +225,17 @@ export class MTableHeader extends React.Component {
           0,
           <TableCell
             padding="checkbox"
-            key={"key-group-header" + columnDef.tableData.id}
+            key={`key-group-header${columnDef.tableData.id}`}
             className={this.props.classes.header}
           />
-        );
-      });
+        )
+      })
 
     return (
       <TableHead>
         <TableRow>{headers}</TableRow>
       </TableHead>
-    );
+    )
   }
 }
 
@@ -250,15 +246,15 @@ MTableHeader.defaultProps = {
   selectedCount: 0,
   sorting: true,
   localization: {
-    actions: "Actions",
+    actions: 'Actions'
   },
   orderBy: undefined,
-  orderDirection: "asc",
+  orderDirection: 'asc',
   actionsHeaderIndex: 0,
-  detailPanelColumnAlignment: "left",
+  detailPanelColumnAlignment: 'left',
   draggable: true,
-  thirdSortClick: true,
-};
+  thirdSortClick: true
+}
 
 MTableHeader.propTypes = {
   columns: PropTypes.array.isRequired,
@@ -279,16 +275,16 @@ MTableHeader.propTypes = {
   showSelectAllCheckbox: PropTypes.bool,
   draggable: PropTypes.bool,
   thirdSortClick: PropTypes.bool,
-  tooltip: PropTypes.string,
-};
+  tooltip: PropTypes.string
+}
 
 export const styles = (theme) => ({
   header: {
-    position: "sticky",
+    position: 'sticky',
     top: 0,
     zIndex: 10,
-    backgroundColor: theme.palette.background.paper, // Change according to theme,
-  },
-});
+    backgroundColor: theme.palette.background.paper // Change according to theme,
+  }
+})
 
-export default withStyles(styles)(MTableHeader);
+export default withStyles(styles)(MTableHeader)

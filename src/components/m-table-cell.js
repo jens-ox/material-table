@@ -1,13 +1,9 @@
-/* eslint-disable no-unused-vars */
-import * as React from "react";
-import TableCell from "@material-ui/core/TableCell";
-import PropTypes from "prop-types";
-import parseISO from "date-fns/parseISO";
-/* eslint-enable no-unused-vars */
+import * as React from 'react'
+import TableCell from '@material-ui/core/TableCell'
+import PropTypes from 'prop-types'
+import parseISO from 'date-fns/parseISO'
 
-/* eslint-disable no-useless-escape */
-const isoDateRegex = /^\d{4}-(0[1-9]|1[0-2])-([12]\d|0[1-9]|3[01])([T\s](([01]\d|2[0-3])\:[0-5]\d|24\:00)(\:[0-5]\d([\.,]\d+)?)?([zZ]|([\+-])([01]\d|2[0-3])\:?([0-5]\d)?)?)?$/;
-/* eslint-enable no-useless-escape */
+const isoDateRegex = /^\d{4}-(0[1-9]|1[0-2])-([12]\d|0[1-9]|3[01])([T\s](([01]\d|2[0-3]):[0-5]\d|24:00)(:[0-5]\d([.,]\d+)?)?([zZ]|([+-])([01]\d|2[0-3]):?([0-5]\d)?)?)?$/
 
 export default class MTableCell extends React.Component {
   getRenderValue() {
@@ -15,81 +11,81 @@ export default class MTableCell extends React.Component {
       this.props.columnDef.dateSetting &&
       this.props.columnDef.dateSetting.locale
         ? this.props.columnDef.dateSetting.locale
-        : undefined;
+        : undefined
     if (
       this.props.columnDef.emptyValue !== undefined &&
       (this.props.value === undefined || this.props.value === null)
     ) {
-      return this.getEmptyValue(this.props.columnDef.emptyValue);
+      return this.getEmptyValue(this.props.columnDef.emptyValue)
     }
     if (this.props.columnDef.render) {
       if (this.props.rowData) {
-        return this.props.columnDef.render(this.props.rowData, "row");
+        return this.props.columnDef.render(this.props.rowData, 'row')
       } else if (this.props.value) {
-        return this.props.columnDef.render(this.props.value, "group");
+        return this.props.columnDef.render(this.props.value, 'group')
       }
-    } else if (this.props.columnDef.type === "boolean") {
-      const style = { textAlign: "left", verticalAlign: "middle", width: 48 };
+    } else if (this.props.columnDef.type === 'boolean') {
+      const style = { textAlign: 'left', verticalAlign: 'middle', width: 48 }
       if (this.props.value) {
-        return <this.props.icons.Check style={style} />;
+        return <this.props.icons.Check style={style} />
       } else {
-        return <this.props.icons.ThirdStateCheck style={style} />;
+        return <this.props.icons.ThirdStateCheck style={style} />
       }
-    } else if (this.props.columnDef.type === "date") {
+    } else if (this.props.columnDef.type === 'date') {
       if (this.props.value instanceof Date) {
-        return this.props.value.toLocaleDateString(dateLocale);
+        return this.props.value.toLocaleDateString(dateLocale)
       } else if (isoDateRegex.exec(this.props.value)) {
-        return parseISO(this.props.value).toLocaleDateString(dateLocale);
+        return parseISO(this.props.value).toLocaleDateString(dateLocale)
       } else {
-        return this.props.value;
+        return this.props.value
       }
-    } else if (this.props.columnDef.type === "time") {
+    } else if (this.props.columnDef.type === 'time') {
       if (this.props.value instanceof Date) {
-        return this.props.value.toLocaleTimeString();
+        return this.props.value.toLocaleTimeString()
       } else if (isoDateRegex.exec(this.props.value)) {
-        return parseISO(this.props.value).toLocaleTimeString(dateLocale);
+        return parseISO(this.props.value).toLocaleTimeString(dateLocale)
       } else {
-        return this.props.value;
+        return this.props.value
       }
-    } else if (this.props.columnDef.type === "datetime") {
+    } else if (this.props.columnDef.type === 'datetime') {
       if (this.props.value instanceof Date) {
-        return this.props.value.toLocaleString();
+        return this.props.value.toLocaleString()
       } else if (isoDateRegex.exec(this.props.value)) {
-        return parseISO(this.props.value).toLocaleString(dateLocale);
+        return parseISO(this.props.value).toLocaleString(dateLocale)
       } else {
-        return this.props.value;
+        return this.props.value
       }
-    } else if (this.props.columnDef.type === "currency") {
+    } else if (this.props.columnDef.type === 'currency') {
       return this.getCurrencyValue(
         this.props.columnDef.currencySetting,
         this.props.value
-      );
-    } else if (typeof this.props.value === "boolean") {
+      )
+    } else if (typeof this.props.value === 'boolean') {
       // To avoid forwardref boolean children.
-      return this.props.value.toString();
+      return this.props.value.toString()
     }
 
-    return this.props.value;
+    return this.props.value
   }
 
   getEmptyValue(emptyValue) {
-    if (typeof emptyValue === "function") {
-      return this.props.columnDef.emptyValue(this.props.rowData);
+    if (typeof emptyValue === 'function') {
+      return this.props.columnDef.emptyValue(this.props.rowData)
     } else {
-      return emptyValue;
+      return emptyValue
     }
   }
 
   getCurrencyValue(currencySetting, value) {
     if (currencySetting !== undefined) {
       return new Intl.NumberFormat(
-        currencySetting.locale !== undefined ? currencySetting.locale : "en-US",
+        currencySetting.locale !== undefined ? currencySetting.locale : 'en-US',
         {
-          style: "currency",
+          style: 'currency',
           currency:
             currencySetting.currencyCode !== undefined
               ? currencySetting.currencyCode
-              : "USD",
+              : 'USD',
           minimumFractionDigits:
             currencySetting.minimumFractionDigits !== undefined
               ? currencySetting.minimumFractionDigits
@@ -97,48 +93,48 @@ export default class MTableCell extends React.Component {
           maximumFractionDigits:
             currencySetting.maximumFractionDigits !== undefined
               ? currencySetting.maximumFractionDigits
-              : 2,
+              : 2
         }
-      ).format(value !== undefined ? value : 0);
+      ).format(value !== undefined ? value : 0)
     } else {
-      return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(value !== undefined ? value : 0);
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(value !== undefined ? value : 0)
     }
   }
 
   handleClickCell = (e) => {
     if (this.props.columnDef.disableClick) {
-      e.stopPropagation();
+      e.stopPropagation()
     }
-  };
+  }
 
   getStyle = () => {
     let cellStyle = {
-      color: "inherit",
+      color: 'inherit',
       width: this.props.columnDef.tableData.width,
-      boxSizing: "border-box",
-      fontSize: "inherit",
-      fontFamily: "inherit",
-      fontWeight: "inherit",
-    };
+      boxSizing: 'border-box',
+      fontSize: 'inherit',
+      fontFamily: 'inherit',
+      fontWeight: 'inherit'
+    }
 
-    if (typeof this.props.columnDef.cellStyle === "function") {
+    if (typeof this.props.columnDef.cellStyle === 'function') {
       cellStyle = {
         ...cellStyle,
-        ...this.props.columnDef.cellStyle(this.props.value, this.props.rowData),
-      };
+        ...this.props.columnDef.cellStyle(this.props.value, this.props.rowData)
+      }
     } else {
-      cellStyle = { ...cellStyle, ...this.props.columnDef.cellStyle };
+      cellStyle = { ...cellStyle, ...this.props.columnDef.cellStyle }
     }
 
     if (this.props.columnDef.disableClick) {
-      cellStyle.cursor = "default";
+      cellStyle.cursor = 'default'
     }
 
-    return { ...this.props.style, ...cellStyle };
-  };
+    return { ...this.props.style, ...cellStyle }
+  }
 
   render() {
     const {
@@ -149,31 +145,31 @@ export default class MTableCell extends React.Component {
       cellEditable,
       onCellEditStarted,
       ...cellProps
-    } = this.props;
+    } = this.props
     const cellAlignment =
       columnDef.align !== undefined
         ? columnDef.align
-        : ["numeric", "currency"].indexOf(this.props.columnDef.type) !== -1
-        ? "right"
-        : "left";
+        : ['numeric', 'currency'].indexOf(this.props.columnDef.type) !== -1
+        ? 'right'
+        : 'left'
 
-    let renderValue = this.getRenderValue();
+    let renderValue = this.getRenderValue()
     if (cellEditable) {
       renderValue = (
         <div
           style={{
-            borderBottom: "1px dashed grey",
-            cursor: "pointer",
-            width: "max-content",
+            borderBottom: '1px dashed grey',
+            cursor: 'pointer',
+            width: 'max-content'
           }}
           onClick={(e) => {
-            e.stopPropagation();
-            onCellEditStarted(this.props.rowData, this.props.columnDef);
+            e.stopPropagation()
+            onCellEditStarted(this.props.rowData, this.props.columnDef)
           }}
         >
           {renderValue}
         </div>
-      );
+      )
     }
 
     return (
@@ -187,18 +183,18 @@ export default class MTableCell extends React.Component {
         {this.props.children}
         {renderValue}
       </TableCell>
-    );
+    )
   }
 }
 
 MTableCell.defaultProps = {
   columnDef: {},
-  value: undefined,
-};
+  value: undefined
+}
 
 MTableCell.propTypes = {
   columnDef: PropTypes.object.isRequired,
   value: PropTypes.any,
   rowData: PropTypes.object,
-  errorState: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
-};
+  errorState: PropTypes.oneOfType([PropTypes.object, PropTypes.bool])
+}

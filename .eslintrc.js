@@ -7,6 +7,14 @@ module.exports = {
     'prettier/@typescript-eslint',
     'prettier/standard'
   ],
+  overrides: [
+    {
+      files: ['*.js'],
+      rules: {
+        '@typescript-eslint/explicit-module-boundary-types': 'off'
+      }
+    }
+  ],
   plugins: ['import', 'prettier', 'standard'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -29,6 +37,7 @@ module.exports = {
   rules: {
     'space-before-function-paren': 0,
     'new-cap': 0,
-    'prettier/prettier': 2
+    'prettier/prettier': 2,
+    'prefer-template': 2
   }
 }

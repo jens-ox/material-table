@@ -1,31 +1,29 @@
-/* eslint-disable no-unused-vars */
-import IconButton from "@material-ui/core/IconButton";
-import withStyles from "@material-ui/core/styles/withStyles";
-import Tooltip from "@material-ui/core/Tooltip";
-import Typography from "@material-ui/core/Typography";
-import PropTypes from "prop-types";
-import * as React from "react";
-/* eslint-enable no-unused-vars */
+import IconButton from '@material-ui/core/IconButton'
+import withStyles from '@material-ui/core/styles/withStyles'
+import Tooltip from '@material-ui/core/Tooltip'
+import Typography from '@material-ui/core/Typography'
+import PropTypes from 'prop-types'
+import * as React from 'react'
 
 class MTablePaginationInner extends React.Component {
   handleFirstPageButtonClick = (event) => {
-    this.props.onChangePage(event, 0);
-  };
+    this.props.onChangePage(event, 0)
+  }
 
   handleBackButtonClick = (event) => {
-    this.props.onChangePage(event, this.props.page - 1);
-  };
+    this.props.onChangePage(event, this.props.page - 1)
+  }
 
   handleNextButtonClick = (event) => {
-    this.props.onChangePage(event, this.props.page + 1);
-  };
+    this.props.onChangePage(event, this.props.page + 1)
+  }
 
   handleLastPageButtonClick = (event) => {
     this.props.onChangePage(
       event,
       Math.max(0, Math.ceil(this.props.count / this.props.rowsPerPage) - 1)
-    );
-  };
+    )
+  }
 
   render() {
     const {
@@ -34,12 +32,12 @@ class MTablePaginationInner extends React.Component {
       page,
       rowsPerPage,
       theme,
-      showFirstLastPageButtons,
-    } = this.props;
+      showFirstLastPageButtons
+    } = this.props
     const localization = {
       ...MTablePaginationInner.defaultProps.localization,
-      ...this.props.localization,
-    };
+      ...this.props.localization
+    }
 
     return (
       <div className={classes.root}>
@@ -51,7 +49,7 @@ class MTablePaginationInner extends React.Component {
                 disabled={page === 0}
                 aria-label={localization.firstAriaLabel}
               >
-                {theme.direction === "rtl" ? (
+                {theme.direction === 'rtl' ? (
                   <this.props.icons.LastPage />
                 ) : (
                   <this.props.icons.FirstPage />
@@ -67,7 +65,7 @@ class MTablePaginationInner extends React.Component {
               disabled={page === 0}
               aria-label={localization.previousAriaLabel}
             >
-              {theme.direction === "rtl" ? (
+              {theme.direction === 'rtl' ? (
                 <this.props.icons.NextPage />
               ) : (
                 <this.props.icons.PreviousPage />
@@ -79,26 +77,26 @@ class MTablePaginationInner extends React.Component {
           variant="caption"
           style={{
             flex: 1,
-            textAlign: "center",
-            alignSelf: "center",
-            flexBasis: "inherit",
+            textAlign: 'center',
+            alignSelf: 'center',
+            flexBasis: 'inherit'
           }}
         >
           {localization.labelDisplayedRows
             .replace(
-              "{from}",
+              '{from}',
               this.props.count === 0
                 ? 0
                 : this.props.page * this.props.rowsPerPage + 1
             )
             .replace(
-              "{to}",
+              '{to}',
               Math.min(
                 (this.props.page + 1) * this.props.rowsPerPage,
                 this.props.count
               )
             )
-            .replace("{count}", this.props.count)}
+            .replace('{count}', this.props.count)}
         </Typography>
         <Tooltip title={localization.nextTooltip}>
           <span>
@@ -107,7 +105,7 @@ class MTablePaginationInner extends React.Component {
               disabled={page >= Math.ceil(count / rowsPerPage) - 1}
               aria-label={localization.nextAriaLabel}
             >
-              {theme.direction === "rtl" ? (
+              {theme.direction === 'rtl' ? (
                 <this.props.icons.PreviousPage />
               ) : (
                 <this.props.icons.NextPage />
@@ -123,7 +121,7 @@ class MTablePaginationInner extends React.Component {
                 disabled={page >= Math.ceil(count / rowsPerPage) - 1}
                 aria-label={localization.lastAriaLabel}
               >
-                {theme.direction === "rtl" ? (
+                {theme.direction === 'rtl' ? (
                   <this.props.icons.FirstPage />
                 ) : (
                   <this.props.icons.LastPage />
@@ -133,7 +131,7 @@ class MTablePaginationInner extends React.Component {
           </Tooltip>
         )}
       </div>
-    );
+    )
   }
 }
 
@@ -141,10 +139,10 @@ const actionsStyles = (theme) => ({
   root: {
     flexShrink: 0,
     color: theme.palette.text.secondary,
-    display: "flex",
+    display: 'flex'
     // lineHeight: '48px'
-  },
-});
+  }
+})
 
 MTablePaginationInner.propTypes = {
   onChangePage: PropTypes.func,
@@ -154,23 +152,23 @@ MTablePaginationInner.propTypes = {
   classes: PropTypes.object,
   localization: PropTypes.object,
   theme: PropTypes.any,
-  showFirstLastPageButtons: PropTypes.bool,
-};
+  showFirstLastPageButtons: PropTypes.bool
+}
 
 MTablePaginationInner.defaultProps = {
   showFirstLastPageButtons: true,
   localization: {
-    firstTooltip: "First Page",
-    previousTooltip: "Previous Page",
-    nextTooltip: "Next Page",
-    lastTooltip: "Last Page",
-    labelDisplayedRows: "{from}-{to} of {count}",
-    labelRowsPerPage: "Rows per page:",
-  },
-};
+    firstTooltip: 'First Page',
+    previousTooltip: 'Previous Page',
+    nextTooltip: 'Next Page',
+    lastTooltip: 'Last Page',
+    labelDisplayedRows: '{from}-{to} of {count}',
+    labelRowsPerPage: 'Rows per page:'
+  }
+}
 
 const MTablePagination = withStyles(actionsStyles, { withTheme: true })(
   MTablePaginationInner
-);
+)
 
-export default MTablePagination;
+export default MTablePagination
