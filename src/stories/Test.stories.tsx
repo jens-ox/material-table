@@ -1,5 +1,5 @@
-import React from 'react';
-import { Story, Meta } from '@storybook/react';
+import React from 'react'
+import { Story, Meta } from '@storybook/react'
 
 import MaterialTable from '../index'
 
@@ -9,11 +9,11 @@ export default {
   argTypes: {
     title: { control: 'text' }
   }
-} as Meta;
+} as Meta
 
-const Template: Story<any> = (args) => <MaterialTable {...args} />;
+const Template: Story<any> = (args) => <MaterialTable {...args} />
 
-export const Example = Template.bind({});
+export const Example = Template.bind({})
 Example.args = {
   title: 'One Detail Panel Preview',
   columns: [
@@ -23,14 +23,15 @@ Example.args = {
     {
       title: 'Birth Place',
       field: 'birthCity',
-      lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
-    },
+      lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' }
+    }
   ],
   data: [
     { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
-    { name: 'Zerya Betül', surname: 'Baran', birthYear: 2017, birthCity: 34 },
+    { name: 'Zerya Betül', surname: 'Baran', birthYear: 2017, birthCity: 34 }
   ],
-  detailPanel: () => (
+  detailPanel: function DetailPanel() {
+    return (
       <iframe
         width="100%"
         height="315"
@@ -38,4 +39,5 @@ Example.args = {
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
       />
     )
-};
+  }
+}
