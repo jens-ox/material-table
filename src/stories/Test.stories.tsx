@@ -1,5 +1,4 @@
 import React from 'react';
-// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/react';
 
 import MaterialTable from '../index'
@@ -7,6 +6,9 @@ import MaterialTable from '../index'
 export default {
   title: 'Example/Page',
   component: MaterialTable,
+  argTypes: {
+    title: { control: 'text' }
+  }
 } as Meta;
 
 const Template: Story<any> = (args) => <MaterialTable {...args} />;
@@ -28,7 +30,7 @@ Example.args = {
     { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
     { name: 'Zerya Betül', surname: 'Baran', birthYear: 2017, birthCity: 34 },
   ],
-  detailPanel: (rowData) => (
+  detailPanel: () => (
       <iframe
         width="100%"
         height="315"
