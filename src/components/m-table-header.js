@@ -1,27 +1,23 @@
-/* eslint-disable no-unused-vars */
-import * as React from "react";
-import PropTypes from "prop-types";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import withStyles from "@material-ui/core/styles/withStyles";
-import { Draggable } from "react-beautiful-dnd";
-import { Tooltip } from "@material-ui/core";
-import * as CommonValues from "../utils/common-values";
-import equal from "fast-deep-equal";
-
-/* eslint-enable no-unused-vars */
+import React from 'react'
+import PropTypes from 'prop-types'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import TableCell from '@material-ui/core/TableCell'
+import TableSortLabel from '@material-ui/core/TableSortLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import withStyles from '@material-ui/core/styles/withStyles'
+import { Draggable } from 'react-beautiful-dnd'
+import { Tooltip } from '@material-ui/core'
+import * as CommonValues from '../utils/common-values'
 
 export class MTableHeader extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       lastX: 0,
-      resizingColumnDef: undefined,
-    };
+      resizingColumnDef: undefined
+    }
   }
 
   // shouldComponentUpdate(nextProps, nextState){
@@ -29,35 +25,35 @@ export class MTableHeader extends React.Component {
   // }
 
   componentDidMount() {
-    document.addEventListener("mousemove", this.handleMouseMove);
-    document.addEventListener("mouseup", this.handleMouseUp);
+    document.addEventListener('mousemove', this.handleMouseMove)
+    document.addEventListener('mouseup', this.handleMouseUp)
   }
 
   componentWillUnmount() {
-    document.removeEventListener("mousemove", this.handleMouseMove);
-    document.removeEventListener("mouseup", this.handleMouseUp);
+    document.removeEventListener('mousemove', this.handleMouseMove)
+    document.removeEventListener('mouseup', this.handleMouseUp)
   }
 
   handleMouseDown = (e, columnDef) => {
     this.setState({
       lastAdditionalWidth: columnDef.tableData.additionalWidth,
       lastX: e.clientX,
-      resizingColumnDef: columnDef,
-    });
-  };
+      resizingColumnDef: columnDef
+    })
+  }
 
   handleMouseMove = (e) => {
     if (!this.state.resizingColumnDef) {
-      return;
+      return
     }
 
     let additionalWidth =
-      this.state.lastAdditionalWidth + e.clientX - this.state.lastX;
+      this.state.lastAdditionalWidth + e.clientX - this.state.lastX
 
     additionalWidth = Math.min(
       this.state.resizingColumnDef.maxWidth || additionalWidth,
       additionalWidth
-    );
+    )
 
     if (
       this.state.resizingColumnDef.tableData.additionalWidth !== additionalWidth
@@ -65,42 +61,42 @@ export class MTableHeader extends React.Component {
       this.props.onColumnResized(
         this.state.resizingColumnDef.tableData.id,
         additionalWidth
-      );
+      )
     }
-  };
+  }
 
   handleMouseUp = (e) => {
-    this.setState({ resizingColumnDef: undefined });
-  };
+    this.setState({ resizingColumnDef: undefined })
+  }
 
   getCellStyle = (columnDef) => {
     const width = CommonValues.reducePercentsInCalc(
       columnDef.tableData.width,
       this.props.scrollWidth
-    );
+    )
 
     const style = {
       ...this.props.headerStyle,
       ...columnDef.headerStyle,
-      boxSizing: "border-box",
+      boxSizing: 'border-box',
       width,
       maxWidth: columnDef.maxWidth,
-      minWidth: columnDef.minWidth,
-    };
+      minWidth: columnDef.minWidth
+    }
 
     if (
-      this.props.options.tableLayout === "fixed" &&
+      this.props.options.tableLayout === 'fixed' &&
       this.props.options.columnResizable &&
       columnDef.resizable !== false
     ) {
-      style.paddingRight = 2;
+      style.paddingRight = 2
     }
 
-    return style;
-  };
+    return style
+  }
 
   renderHeader() {
-    const size = this.props.options.padding === "default" ? "medium" : "small";
+    const size = this.props.options.padding === 'default' ? 'medium' : 'small'
 
     const mapArr = this.props.columns
       .filter(
@@ -109,7 +105,7 @@ export class MTableHeader extends React.Component {
       )
       .sort((a, b) => a.tableData.columnOrder - b.tableData.columnOrder)
       .map((columnDef, index) => {
-        let content = columnDef.title;
+        let content = columnDef.title
 
         if (this.props.draggable) {
           content = (
@@ -128,7 +124,7 @@ export class MTableHeader extends React.Component {
                 </div>
               )}
             </Draggable>
-          );
+          )
         }
 
         if (columnDef.sorting !== false && this.props.sorting) {
@@ -136,31 +132,28 @@ export class MTableHeader extends React.Component {
             <TableSortLabel
               IconComponent={this.props.icons.SortArrow}
               active={this.props.orderBy === columnDef.tableData.id}
-              direction={this.props.orderDirection || "asc"}
+              direction={this.props.orderDirection || 'asc'}
               onClick={() => {
                 const orderDirection =
                   columnDef.tableData.id !== this.props.orderBy
-                    ? "asc"
-                    : this.props.orderDirection === "asc"
-                    ? "desc"
-                    : this.props.orderDirection === "desc" &&
+                    ? 'asc'
+                    : this.props.orderDirection === 'asc'
+                    ? 'desc'
+                    : this.props.orderDirection === 'desc' &&
                       this.props.thirdSortClick
-                    ? ""
-                    : this.props.orderDirection === "desc" &&
+                    ? ''
+                    : this.props.orderDirection === 'desc' &&
                       !this.props.thirdSortClick
-                    ? "asc"
-                    : this.props.orderDirection === ""
-                    ? "asc"
-                    : "desc";
-                this.props.onOrderChange(
-                  columnDef.tableData.id,
-                  orderDirection
-                );
+                    ? 'asc'
+                    : this.props.orderDirection === ''
+                    ? 'asc'
+                    : 'desc'
+                this.props.onOrderChange(columnDef.tableData.id, orderDirection)
               }}
             >
               {content}
             </TableSortLabel>
-          );
+          )
         }
 
         if (columnDef.tooltip) {
@@ -168,40 +161,40 @@ export class MTableHeader extends React.Component {
             <Tooltip title={columnDef.tooltip} placement="bottom">
               <span>{content}</span>
             </Tooltip>
-          );
+          )
         }
 
         if (
-          this.props.options.tableLayout === "fixed" &&
+          this.props.options.tableLayout === 'fixed' &&
           this.props.options.columnResizable &&
           columnDef.resizable !== false
         ) {
           content = (
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
               <div style={{ flex: 1 }}>{content}</div>
               <div></div>
               <this.props.icons.Resize
                 style={{
-                  cursor: "col-resize",
+                  cursor: 'col-resize',
                   color:
                     this.state.resizingColumnDef &&
                     this.state.resizingColumnDef.tableData.id ===
                       columnDef.tableData.id
                       ? this.props.theme.palette.primary.main
-                      : "inherit",
+                      : 'inherit'
                 }}
                 onMouseDown={(e) => this.handleMouseDown(e, columnDef)}
               />
             </div>
-          );
+          )
         }
 
         const cellAlignment =
           columnDef.align !== undefined
             ? columnDef.align
-            : ["numeric", "currency"].indexOf(columnDef.type) !== -1
-            ? "right"
-            : "left";
+            : ['numeric', 'currency'].indexOf(columnDef.type) !== -1
+            ? 'right'
+            : 'left'
         return (
           <TableCell
             key={columnDef.tableData.id}
@@ -212,17 +205,17 @@ export class MTableHeader extends React.Component {
           >
             {content}
           </TableCell>
-        );
-      });
-    return mapArr;
+        )
+      })
+    return mapArr
   }
 
   renderActionsHeader() {
     const localization = {
       ...MTableHeader.defaultProps.localization,
-      ...this.props.localization,
-    };
-    const width = CommonValues.actionsColumnWidth(this.props);
+      ...this.props.localization
+    }
+    const width = CommonValues.actionsColumnWidth(this.props)
     return (
       <TableCell
         key="key-actions-column"
@@ -231,21 +224,22 @@ export class MTableHeader extends React.Component {
         style={{
           ...this.props.headerStyle,
           width: width,
-          textAlign: "center",
-          boxSizing: "border-box",
+          textAlign: 'center',
+          boxSizing: 'border-box'
         }}
       >
         <TableSortLabel hideSortIcon={true} disabled>
           {localization.actions}
         </TableSortLabel>
       </TableCell>
-    );
+    )
   }
+
   renderSelectionHeader() {
     const selectionWidth = CommonValues.selectionMaxWidth(
       this.props,
       this.props.treeDataMaxLevel
-    );
+    )
 
     return (
       <TableCell
@@ -271,7 +265,7 @@ export class MTableHeader extends React.Component {
           />
         )}
       </TableCell>
-    );
+    )
   }
 
   renderDetailPanelColumnCell() {
@@ -282,36 +276,36 @@ export class MTableHeader extends React.Component {
         className={this.props.classes.header}
         style={{ ...this.props.headerStyle }}
       />
-    );
+    )
   }
 
   render() {
-    const headers = this.renderHeader();
+    const headers = this.renderHeader()
     if (this.props.hasSelection) {
-      headers.splice(0, 0, this.renderSelectionHeader());
+      headers.splice(0, 0, this.renderSelectionHeader())
     }
 
     if (this.props.showActionsColumn) {
       if (this.props.actionsHeaderIndex >= 0) {
-        let endPos = 0;
+        let endPos = 0
         if (this.props.hasSelection) {
-          endPos = 1;
+          endPos = 1
         }
         headers.splice(
           this.props.actionsHeaderIndex + endPos,
           0,
           this.renderActionsHeader()
-        );
+        )
       } else if (this.props.actionsHeaderIndex === -1) {
-        headers.push(this.renderActionsHeader());
+        headers.push(this.renderActionsHeader())
       }
     }
 
     if (this.props.hasDetailPanel) {
-      if (this.props.detailPanelColumnAlignment === "right") {
-        headers.push(this.renderDetailPanelColumnCell());
+      if (this.props.detailPanelColumnAlignment === 'right') {
+        headers.push(this.renderDetailPanelColumnCell())
       } else {
-        headers.splice(0, 0, this.renderDetailPanelColumnCell());
+        headers.splice(0, 0, this.renderDetailPanelColumnCell())
       }
     }
 
@@ -321,11 +315,11 @@ export class MTableHeader extends React.Component {
         0,
         <TableCell
           padding="none"
-          key={"key-tree-data-header"}
+          key={'key-tree-data-header'}
           className={this.props.classes.header}
           style={{ ...this.props.headerStyle }}
         />
-      );
+      )
     }
 
     this.props.columns
@@ -336,17 +330,17 @@ export class MTableHeader extends React.Component {
           0,
           <TableCell
             padding="checkbox"
-            key={"key-group-header" + columnDef.tableData.id}
+            key={`key-group-header${columnDef.tableData.id}`}
             className={this.props.classes.header}
           />
-        );
-      });
+        )
+      })
 
     return (
       <TableHead>
         <TableRow>{headers}</TableRow>
       </TableHead>
-    );
+    )
   }
 }
 
@@ -357,15 +351,15 @@ MTableHeader.defaultProps = {
   selectedCount: 0,
   sorting: true,
   localization: {
-    actions: "Actions",
+    actions: 'Actions'
   },
   orderBy: undefined,
-  orderDirection: "asc",
+  orderDirection: 'asc',
   actionsHeaderIndex: 0,
-  detailPanelColumnAlignment: "left",
+  detailPanelColumnAlignment: 'left',
   draggable: true,
-  thirdSortClick: true,
-};
+  thirdSortClick: true
+}
 
 MTableHeader.propTypes = {
   columns: PropTypes.array.isRequired,
@@ -386,17 +380,17 @@ MTableHeader.propTypes = {
   showSelectAllCheckbox: PropTypes.bool,
   draggable: PropTypes.bool,
   thirdSortClick: PropTypes.bool,
-  tooltip: PropTypes.string,
-};
+  tooltip: PropTypes.string
+}
 
 export const styles = (theme) => ({
   header: {
     // display: 'inline-block',
-    position: "sticky",
+    position: 'sticky',
     top: 0,
     zIndex: 10,
-    backgroundColor: theme.palette.background.paper, // Change according to theme,
-  },
-});
+    backgroundColor: theme.palette.background.paper // Change according to theme,
+  }
+})
 
-export default withStyles(styles, { withTheme: true })(MTableHeader);
+export default withStyles(styles, { withTheme: true })(MTableHeader)

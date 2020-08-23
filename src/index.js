@@ -9,7 +9,7 @@ MaterialTable.propTypes = propTypes
 
 export { MaterialTable as MTable }
 
-const styles = (theme) => ({
+const styles = () => ({
   paginationRoot: {
     width: '100%'
   },

@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-import * as React from "react";
-import PropTypes from "prop-types";
-/* eslint-enable no-unused-vars */
+import * as React from 'react'
+import PropTypes from 'prop-types'
 
 class MTableActions extends React.Component {
   render() {
@@ -9,32 +7,32 @@ class MTableActions extends React.Component {
       return this.props.actions.map((action, index) => (
         <this.props.components.Action
           action={action}
-          key={"action-" + index}
+          key={`action-${index}`}
           data={this.props.data}
           size={this.props.size}
           disabled={this.props.disabled}
         />
-      ));
+      ))
     }
 
-    return null;
+    return null
   }
 }
 
 MTableActions.defaultProps = {
   actions: [],
-  data: {},
-};
+  data: {}
+}
 
 MTableActions.propTypes = {
   components: PropTypes.object.isRequired,
   actions: PropTypes.array.isRequired,
   data: PropTypes.oneOfType([
     PropTypes.object,
-    PropTypes.arrayOf(PropTypes.object),
+    PropTypes.arrayOf(PropTypes.object)
   ]),
   disabled: PropTypes.bool,
-  size: PropTypes.string,
-};
+  size: PropTypes.string
+}
 
-export default MTableActions;
+export default MTableActions
