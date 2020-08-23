@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import Table from '@material-ui/core/Table'
 import TableFooter from '@material-ui/core/TableFooter'
 import TableRow from '@material-ui/core/TableRow'
