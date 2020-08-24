@@ -4,6 +4,14 @@ type RowData = Record<string, unknown>
 type GenericIcon = React.ForwardRefExoticComponent<
   React.RefAttributes<SVGSVGElement>
 >
+type CellStyle =
+  | React.CSSProperties
+  | ((data: RowData[], rowData: RowData) => React.CSSProperties)
+  | ((
+      data: RowData[],
+      rowData: RowData,
+      columnDef: IColumn
+    ) => React.CSSProperties)
 
 interface EditCellColumnDef {
   field: string
@@ -53,7 +61,7 @@ export interface ICell extends TableCellProps {
   // errorState?: unknown // object | bool
   icons?: Icons
   editable?: {
-    cellStyle?: React.CSSProperties
+    cellStyle?: CellStyle
     onCellEditStarted: (rowData: RowData, columnDef: IColumn) => Promise<void>
     onCellEditApproved: (
       newValue: unknown,
@@ -61,14 +69,19 @@ export interface ICell extends TableCellProps {
       rowData: RowData,
       columnDef: IColumn
     ) => Promise<void>
+    onCellEditFinished: (rowData: RowData, columnDef: IColumn) => Promise<void>
   }
+}
+
+export interface MTableEditCell extends ICell {
+  components: any // object required
+  errorState?: any // object | bool
+  localization: any // object required
 }
 
 export interface IColumn {
   align?: 'center' | 'inherit' | 'justify' | 'left' | 'right'
-  cellStyle?:
-    | React.CSSProperties
-    | ((data: RowData[], rowData: RowData) => React.CSSProperties)
+  cellStyle?: CellStyle
   currencySetting?: {
     locale?: string
     currencyCode?: string
@@ -100,7 +113,7 @@ export interface IColumn {
     onFilterChanged: (rowId: string, value: unknown) => void
   }) => React.ReactElement<unknown>
   filterPlaceholder?: string
-  filterCellStyle?: React.CSSProperties
+  filterCellStyle?: CellStyle
   grouping?: boolean
   groupTitle?: string | ((groupData: unknown) => unknown) | React.ReactNode
   headerStyle?: React.CSSProperties

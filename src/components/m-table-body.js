@@ -2,7 +2,7 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import PropTypes from 'prop-types'
-import * as React from 'react'
+import React from 'react'
 
 class MTableBody extends React.Component {
   renderEmpty(emptyRowCount, renderData) {
