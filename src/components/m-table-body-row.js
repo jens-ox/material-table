@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Icon from '@material-ui/core/Icon'
 import Tooltip from '@material-ui/core/Tooltip'
 import PropTypes from 'prop-types'
-import * as React from 'react'
+import React from 'react'
 import * as CommonValues from '../utils/common-values'
 
 export default class MTableBodyRow extends React.Component {

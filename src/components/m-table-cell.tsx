@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import TableCell from '@material-ui/core/TableCell'
 import parseISO from 'date-fns/parseISO'
 import { ICell } from '../typings'

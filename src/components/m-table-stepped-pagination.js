@@ -4,7 +4,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 import Hidden from '@material-ui/core/Hidden'
 import Button from '@material-ui/core/Button'
 import PropTypes from 'prop-types'
-import * as React from 'react'
+import React from 'react'
 
 class MTablePaginationInner extends React.Component {
   handleFirstPageButtonClick = (event) => {

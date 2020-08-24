@@ -13,7 +13,7 @@ import classNames from 'classnames'
 import { CsvBuilder } from 'filefy'
 import PropTypes from 'prop-types'
 import 'jspdf-autotable'
-import * as React from 'react'
+import React from 'react'
 import { jsPDF } from 'jspdf'
 
 export class MTableToolbar extends React.Component {
