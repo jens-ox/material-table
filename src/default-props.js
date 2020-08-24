@@ -68,6 +68,14 @@ OverlayError.propTypes = {
 
 const Container = (props) => <Paper elevation={2} {...props} />
 
+const GenericIcon = (text) =>
+  // eslint-disable-next-line react/display-name
+  React.forwardRef((props, ref) => (
+    <Icon {...props} ref={ref}>
+      {text}
+    </Icon>
+  ))
+
 export const defaultProps = {
   actions: [],
   classes: {},
@@ -93,132 +101,24 @@ export const defaultProps = {
   },
   data: [],
   icons: {
-    Add: React.forwardRef(function Add(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          add_box
-        </Icon>
-      )
-    }),
-    Check: React.forwardRef(function Check(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          check
-        </Icon>
-      )
-    }),
-    Clear: React.forwardRef(function Clear(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          clear
-        </Icon>
-      )
-    }),
-    Delete: React.forwardRef(function Delete(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          delete_outline
-        </Icon>
-      )
-    }),
-    DetailPanel: React.forwardRef(function DetailPanel(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          chevron_right
-        </Icon>
-      )
-    }),
-    Edit: React.forwardRef(function Edit(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          edit
-        </Icon>
-      )
-    }),
-    Export: React.forwardRef(function Export(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          save_alt
-        </Icon>
-      )
-    }),
-    Filter: React.forwardRef(function Filter(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          filter_list
-        </Icon>
-      )
-    }),
-    FirstPage: React.forwardRef(function FirstPage(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          first_page
-        </Icon>
-      )
-    }),
-    LastPage: React.forwardRef(function LastPage(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          last_page
-        </Icon>
-      )
-    }),
-    NextPage: React.forwardRef(function NextPage(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          chevron_right
-        </Icon>
-      )
-    }),
-    PreviousPage: React.forwardRef(function PreviousPage(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          chevron_left
-        </Icon>
-      )
-    }),
-    ResetSearch: React.forwardRef(function ResetSearch(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          clear
-        </Icon>
-      )
-    }),
-    Search: React.forwardRef(function Search(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          search
-        </Icon>
-      )
-    }),
-    SortArrow: React.forwardRef(function SortArrow(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          arrow_downward
-        </Icon>
-      )
-    }),
-    ThirdStateCheck: React.forwardRef(function ThirdStateCheck(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          remove
-        </Icon>
-      )
-    }),
-    ViewColumn: React.forwardRef(function ViewColumn(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          view_column
-        </Icon>
-      )
-    }),
-    Retry: React.forwardRef(function Retry(props, ref) {
-      return (
-        <Icon {...props} ref={ref}>
-          replay
-        </Icon>
-      )
-    })
+    Add: GenericIcon('add_box'),
+    Check: GenericIcon('check'),
+    Clear: GenericIcon('clear'),
+    Delete: GenericIcon('delete_outline'),
+    DetailPanel: GenericIcon('chevron_right'),
+    Edit: GenericIcon('edit'),
+    Export: GenericIcon('save_alt'),
+    Filter: GenericIcon('filter_list'),
+    FirstPage: GenericIcon('first_page'),
+    LastPage: GenericIcon('last_page'),
+    NextPage: GenericIcon('chevron_right'),
+    PreviousPage: GenericIcon('chevron_left'),
+    ResetSearch: GenericIcon('clear'),
+    Search: GenericIcon('search'),
+    SortArrow: GenericIcon('arrow_downward'),
+    ThirdStateCheck: GenericIcon('remove'),
+    ViewColumn: GenericIcon('view_column'),
+    Retry: GenericIcon('replay')
   },
   isLoading: false,
   title: 'Table Title',
