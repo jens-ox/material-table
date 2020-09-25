@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import TableCell from '@material-ui/core/TableCell'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import withTheme from '@material-ui/core/styles/withTheme'
-import { MTableEditCell } from '../typings'
+import { MTableEditCell as IMTableEditCell } from '../typings'
 
 const MTableEditCell = ({
   rowData,
@@ -11,7 +11,7 @@ const MTableEditCell = ({
   icons,
   localization,
   components
-}: MTableEditCell) => {
+}: IMTableEditCell) => {
   const [value, setValue] = useState<any>(rowData[columnDef.field])
   const [isLoading, setIsLoading] = useState(false)
 
