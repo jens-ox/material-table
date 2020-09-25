@@ -385,7 +385,6 @@ MTableHeader.propTypes = {
 
 export const styles = (theme) => ({
   header: {
-    // display: 'inline-block',
     position: 'sticky',
     top: 0,
     zIndex: 10,
